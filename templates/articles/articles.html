@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!-- Articles Section-->
+    <section class="page-section portfolio" id="portfolio">
+        <div class="container">
+            <!-- Portfolio Section Heading-->
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Productos</h2>
+            <!-- Icon Divider-->
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <!-- Portfolio Grid Items-->
+            <div class="row">
+                
+                {% if articles %}
+                    {% for article in articles %}
+                        <div class="col-sm-12 col-md-3 col-lg-4 mb-4">
+                            <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal{{article.id}}">
+                                <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                    <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                    <img class="img-fluid img-fixed" src="{{ article.image_thumbnail.url }}" alt="">
+                            </div>
+                        </div>
+
+                        <!-- Portfolio Modals--><!-- Portfolio Modal 1-->
+                        <div class="portfolio-modal modal fade" id="portfolioModal{{article.id}}" tabindex="-1" role="dialog" aria-labelledby="portfolioModal1Label" aria-hidden="true">
+                            <div class="modal-dialog modal-xl" role="document">
+                                <div class="modal-content">
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                                    </button>
+                                    <div class="modal-body text-center">
+                                        <div class="container">
+                                            <div class="row justify-content-center">
+                                                <div class="col-lg-8">
+                                                    <!-- Portfolio Modal - Title-->
+                                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">{{ article.name }}</h2>
+                                                    <!-- Icon Divider-->
+                                                    <div class="divider-custom">
+                                                        <div class="divider-custom-line"></div>
+                                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                                        <div class="divider-custom-line"></div>
+                                                    </div>
+                                                    <!-- Portfolio Modal - Image-->
+                                                    <img class="img-fluid rounded mb-2" src="{{ article.photo_main.url }}" alt="Imagen del articulo {{article.name}}" />
+                                                    <!-- Portfolio Modal - Text-->
+                                                    <h3 class="mb-2"><b>AR${{ article.price }}</b></h3>
+                                                    <p class="mb-2">{{ article.description|safe }}</p>
+                                                        
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6 col-lg-6">
+                                                    {% if article.photo_1  %}
+                                                        <img src="{{article.photo_1.url}}" alt="Imagen secundaria del articulo {{article.name}}" class="img-fluid img-fixed-modal rounded mx-auto">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-6 col-lg-6">
+
+                                                    {% if article.photo_2  %}
+                                                        <img src="{{article.photo_2.url}}" alt="Imagen secundaria del articulo {{article.name}}" class="img-fluid img-fixed-modal rounded mx-auto">
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                
+                                                    {% if article.link_mp %}
+                                                        <a href="{{article.link_mp}}" class="btn btn-primary" target="_blank">COMPRAR!</a>
+                                                    {% else %}
+                                                        <button class="btn btn-secondary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Cerrar</button>
+                                                        
+                                                    {% endif %}
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                {% else %}
+                    <div class="col-md-12">
+                        <p>No hay articulos cargados</p>
+                    </div>
+                {% endif %}
+                    
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
